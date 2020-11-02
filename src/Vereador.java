@@ -1,12 +1,24 @@
-public class Vereador {
-	private String nome;
-	private Partido partido;
+public class Vereador extends Partido {
+	protected String nome;
+	protected Partido partido;
 	private int qtdProjAprov = 0;
 	private int qtdProjApres = 0;
 
+	public Vereador(String nome, Partido partido, String nomePartido, int numeroPartido) {
+		
+		super(nomePartido, numeroPartido);
+		
+		this.setNome(nome);
+		this.setPartido(partido);
+	}
+	
 	public Vereador(String nome, Partido partido) {
 		this.setNome(nome);
 		this.setPartido(partido);
+	}
+	
+	public Vereador() {
+		
 	}
 
 	public double getIndiceTrabalho() {
