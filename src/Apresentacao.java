@@ -58,10 +58,10 @@ public class Apresentacao extends javax.swing.JFrame {
 				Vereador menor = camara.getVereadorMenorDesempenho();
 				String msg;
 				if (menor == null) {
-					msg = "Não há vereadores cadastrados";
+					msg = "NÃ£o hÃ¡ vereadores cadastrados";
 				} else {
 					msg = "Menor desempenho: " + menor.getNome() + " do partido " + menor.getPartido().getNome()
-							+ " está com desempenho " + menor.calcularDesempenho();
+							+ " estÃ¡ com desempenho " + menor.calcularDesempenho();
 				}
 				JOptionPane.showMessageDialog(null, msg);
 			}
@@ -72,10 +72,10 @@ public class Apresentacao extends javax.swing.JFrame {
 				Vereador mais = camara.getVereadorMaisProjAprov();
 				String msg;
 				if (mais == null) {
-					msg = "Não há vereadores cadastrados";
+					msg = "NÃ£o hÃ¡ vereadores cadastrados";
 				} else {
 					msg = "Menor desempenho: " + mais.getNome() + " do partido " + mais.getPartido().getNome()
-							+ " está com desempenho " + mais.calcularDesempenho();
+							+ " estÃ¡ com desempenho " + mais.calcularDesempenho();
 				}
 				JOptionPane.showMessageDialog(null, msg);
 			}
@@ -95,9 +95,9 @@ public class Apresentacao extends javax.swing.JFrame {
 		jLabel7.setText("jLabel7");
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("Lista 3 - Exercício 5");
+		setTitle("Lista 3 - ExercÃ­cio 5");
 
-		jLabel1.setText("Número:");
+		jLabel1.setText("NÃºmero:");
 
 		jLabel2.setText("Nome:");
 
@@ -143,18 +143,18 @@ public class Apresentacao extends javax.swing.JFrame {
 
 		jbMaisProjetos.setText("Vereador com mais proj. aprovados");
 
-		jLabel9.setText("Número do partido:");
+		jLabel9.setText("NÃºmero do partido:");
 
-		jbEstatisticas.setText("Estatísticas do partido");
+		jbEstatisticas.setText("EstatÃ­sticas do partido");
 
-		jbTotalProjetos.setText("Total de projetos da Câmara");
+		jbTotalProjetos.setText("Total de projetos da CÃ¢mara");
 		jbTotalProjetos.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton6ActionPerformed(evt);
 			}
 		});
 
-		jbVereadoresAcimaMedia.setText("Vereadores acima da média");
+		jbVereadoresAcimaMedia.setText("Vereadores acima da mÃ©dia");
 		jbVereadoresAcimaMedia.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton7ActionPerformed(evt);
@@ -172,12 +172,12 @@ public class Apresentacao extends javax.swing.JFrame {
 				pesquisado = camara.getPartido(num);
 				String msg;
 				if (pesquisado == null) {
-					msg = "Número não encontrado";
-					jbCadastrarVereador.setEnabled(false); // desabilita o botão de Cadastrar pois não pode inserir um
+					msg = "NÃºmero nÃ£o encontrado";
+					jbCadastrarVereador.setEnabled(false); // desabilita o botÃ£o de Cadastrar pois nÃ£o pode inserir um
 															// Vereador sem partido
 				} else {
 					msg = pesquisado.getNome();
-					jbCadastrarVereador.setEnabled(true); // habilita o botão
+					jbCadastrarVereador.setEnabled(true); // habilita o botÃ£o
 				}
 				jlNomePartido.setText(msg);
 			}
@@ -185,7 +185,7 @@ public class Apresentacao extends javax.swing.JFrame {
 		
 				jLabel3.setText("Nome: ");
 				
-						jLabel4.setText("Número do partido:");
+						jLabel4.setText("NÃºmero do partido:");
 						jbCadastrarVereador = new javax.swing.JButton();
 						jbCadastrarVereador.setEnabled(false);
 						
@@ -472,23 +472,26 @@ public class Apresentacao extends javax.swing.JFrame {
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 		Partido partido = new Partido(jtfNomePartido.getText(), Integer.parseInt(jtfNumPartido.getText()));
 		camara.addPartido(partido);
+		String msg = "Novo partido cadastrado.";
+		
+		JOptionPane.showMessageDialog(this, msg);
 	}
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 		Vereador vereador = new Vereador(jtfNomeVereador.getText(), pesquisado);
 		String msg = "Vereador " + vereador.getNome() + " do partido " + vereador.getPartido().getNome()
-				+ " está com desempenho " + vereador.calcularDesempenho();
+				+ " estÃ¡ com desempenho " + vereador.calcularDesempenho();
 		JOptionPane.showMessageDialog(this, msg);
 	}
 
 	private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
-		String msg = "CÂMARA\n\nTotal de projetos apresentados: " + camara.getTotalProjApres()
+		String msg = "CÃ‚MARA\n\nTotal de projetos apresentados: " + camara.getTotalProjApres()
 				+ "\nTotal de projetos aprovados:" + camara.getTotalProjAprov();
 		JOptionPane.showMessageDialog(this, msg);
 	}
 
 	private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
-		String msg = "Vereadores acima da média:" + camara.getMediaDesempenho();
+		String msg = "Vereadores acima da mÃ©dia:" + camara.getMediaDesempenho();
 		ArrayList<Vereador> lista = camara.getVereadoresAcimaMedia();
 		for (Vereador v : lista) {
 			msg += "\nVereador " + v.getNome() + " do partido " + v.getPartido().getNome() + " com desempenho "
