@@ -1,12 +1,15 @@
 import java.time.LocalDate;
 
-public class ProjetoDeLei {
+public class ProjetoDeLei extends Vereador {
 	private String titulo;
 	private LocalDate dataApresentacao,
 					  dataAprovacao;
 	private int numeroProjeto;
 	
-	public ProjetoDeLei(String titulo, LocalDate dtApres, LocalDate dtAprov, int numProjeto) {
+	public ProjetoDeLei(String titulo, LocalDate dtApres, LocalDate dtAprov, int numProjeto, 
+			String nomeVereador, Partido partidoVereador, String nomePartido, int numeroPartido) {
+		
+		super(nomeVereador, partidoVereador, nomePartido, numeroPartido);
 		this.setTitulo(titulo);
 		this.setDataApresentacao(dtApres);
 		this.setDataAprovacao(dtAprov);
