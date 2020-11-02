@@ -5,8 +5,13 @@ public class ProjetoDeLeiComplementar extends ProjetoDeLei {
 	private String artigoLO;
 	private int qtdVotosFavoraveis;
 	
-	public ProjetoDeLeiComplementar(String titulo, LocalDate dtApres, LocalDate dtAprov, int numProjeto, String artigoLO, int qtdVF) {
-		super(titulo, dtApres, dtAprov, numProjeto);
+	public ProjetoDeLeiComplementar(String titulo, LocalDate dtApres, LocalDate dtAprov, 
+			int numProjeto, String artigoLO, int qtdVF, 
+			String nomeVereador, Partido partidoVereador, String nomePartido, int numeroPartido) {
+		
+		super(titulo, dtApres, dtAprov, numProjeto, nomeVereador, 
+				partidoVereador, nomePartido, numeroPartido);
+		
 		this.setArtigoLO(artigoLO);
 		this.setQtdVotosFavoraveis(qtdVF);
 	}
@@ -36,3 +41,4 @@ public class ProjetoDeLeiComplementar extends ProjetoDeLei {
 		return a;
 	}
 }
+
