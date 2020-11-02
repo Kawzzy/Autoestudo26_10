@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -28,8 +30,11 @@ public class Apresentacao extends javax.swing.JFrame {
 	private ProjetoDeLei projetoDeLei;
 	private ProjetoDeLeiComplementar projetoDeLeiComplementar;
 	private ArrayList<ProjetoDeLei> projetos = new ArrayList<>();
-	private ArrayList<ProjetoDeLei> projetosFalsos = new ArrayList<>();
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private ArrayList<Vereador> vereadores = new ArrayList<>();
+	private HashMap<Vereador, ProjetoDeLei> planos = new HashMap<>();
+	private int contProjetos;
+	private int contProjetosAprov;
 
 	/**
 	 * Creates new form Apresentacao
@@ -85,7 +90,7 @@ public class Apresentacao extends javax.swing.JFrame {
 		jbEstatisticas = new javax.swing.JButton();
 		jbEstatisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				
 			}
 		});
 		jSeparator1 = new javax.swing.JSeparator();
@@ -160,11 +165,31 @@ public class Apresentacao extends javax.swing.JFrame {
 				jButton7ActionPerformed(evt);
 			}
 		});
+		
+		JButton jbCadastrarVereador = new JButton();
+		jbCadastrarVereador.setBounds(286, 50, 81, 23);
+		jbCadastrarVereador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String msg;
+				
+				int numPartido = Integer.parseInt(jtfNumPartido.getText());
+				pesquisado = camara.getPartido(numPartido);
+				Vereador vereador = new Vereador(jtfNomeVereador.getText(), pesquisado);
+				vereadores.add(vereador);
+				
+				jcbVereadores.addItem(vereador);
+			}
+		});
+		
 		jPanel2 = new javax.swing.JPanel();
 		jLabel3 = new javax.swing.JLabel();
+		jLabel3.setBounds(10, 22, 35, 14);
 		jLabel4 = new javax.swing.JLabel();
+		jLabel4.setBounds(10, 54, 95, 14);
 		jtfNomeVereador = new javax.swing.JTextField();
+		jtfNomeVereador.setBounds(49, 19, 264, 20);
 		jtfNumPartidoVereador = new javax.swing.JTextField();
+		jtfNumPartidoVereador.setBounds(109, 51, 35, 20);
 		jtfNumPartidoVereador.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -172,71 +197,75 @@ public class Apresentacao extends javax.swing.JFrame {
 				pesquisado = camara.getPartido(num);
 				String msg;
 				if (pesquisado == null) {
-					msg = "Número não encontrado";
+					msg = "Partido não encontrado";
 					jbCadastrarVereador.setEnabled(false); // desabilita o botão de Cadastrar pois não pode inserir um
 															// Vereador sem partido
 				} else {
-					msg = pesquisado.getNome();
+					msg = "Partido encontrado";
 					jbCadastrarVereador.setEnabled(true); // habilita o botão
 				}
-				jlNomePartido.setText(msg);
+				JOptionPane.showMessageDialog(null, msg);
 			}
 		});
 		
 				jLabel3.setText("Nome: ");
 				
 						jLabel4.setText("Número do partido:");
-						jbCadastrarVereador = new javax.swing.JButton();
-						jbCadastrarVereador.setEnabled(false);
-						
-								jbCadastrarVereador.setText("Cadastrar");
-								jbCadastrarVereador.addActionListener(new java.awt.event.ActionListener() {
-									public void actionPerformed(java.awt.event.ActionEvent evt) {
-										jButton2ActionPerformed(evt);
-									}
-								});
 								
 								JSeparator separator = new JSeparator();
+								separator.setBounds(10, 84, 459, 2);
 								
 								JLabel lblLawType = new JLabel("Tipo de Lei:");
+								lblLawType.setBounds(22, 107, 72, 14);
 								lblLawType.setEnabled(false);
 								
 								JLabel lblTitulo = new JLabel("T\u00EDtulo:");
+								lblTitulo.setBounds(22, 154, 48, 14);
 								lblTitulo.setEnabled(false);
 								
 								tfTituloLei = new JTextField();
+								tfTituloLei.setBounds(165, 151, 86, 20);
 								tfTituloLei.setEnabled(false);
 								tfTituloLei.setColumns(10);
 								
 								JLabel lblDtApres = new JLabel("Data de apresenta\u00E7\u00E3o:");
+								lblDtApres.setBounds(22, 192, 131, 14);
 								lblDtApres.setEnabled(false);
 								
 								tfDtApres = new JTextField();
+								tfDtApres.setBounds(165, 189, 86, 20);
 								tfDtApres.setEnabled(false);
 								tfDtApres.setColumns(10);
 								
 								JLabel lblDtAprov = new JLabel("Data de aprova\u00E7\u00E3o");
+								lblDtAprov.setBounds(22, 230, 92, 14);
 								lblDtAprov.setEnabled(false);
 								
 								tfDtAprov = new JTextField();
+								tfDtAprov.setBounds(165, 227, 86, 20);
 								tfDtAprov.setEnabled(false);
 								tfDtAprov.setColumns(10);
 								
 								JLabel lblLeiOrganica = new JLabel("Lei Org\u00E2nica:");
+								lblLeiOrganica.setBounds(22, 268, 80, 14);
 								lblLeiOrganica.setEnabled(false);
 								
 								tfLO = new JTextField();
+								tfLO.setBounds(165, 265, 86, 20);
 								tfLO.setEnabled(false);
 								tfLO.setColumns(10);
 								
 								JLabel lblQtdVF = new JLabel("Qtd de votos favor\u00E1veis:");
+								lblQtdVF.setBounds(22, 306, 139, 14);
 								lblQtdVF.setEnabled(false);
 								
 								tfQtdVF = new JTextField();
+								tfQtdVF.setBounds(165, 303, 86, 20);
 								tfQtdVF.setEnabled(false);
 								tfQtdVF.setColumns(10);
 								
 								JComboBox jcbProjectType = new JComboBox();
+								jcbProjectType.setBounds(98, 104, 162, 20);
 								jcbProjectType.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										if (jcbProjectType.getSelectedIndex() == 0){
@@ -275,178 +304,179 @@ public class Apresentacao extends javax.swing.JFrame {
 								jcbProjectType.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Projeto de Lei", "Projeto de Lei Complementar"}));
 								
 								JButton btnInserir = new JButton();
+								btnInserir.setBounds(286, 353, 81, 23);
 								btnInserir.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
+										String msg;
+										
 										if (jcbProjectType.getSelectedIndex() == 0) {
 											JOptionPane.showMessageDialog(null, "Selecione um tipo de lei");
 										} else if (jcbProjectType.getSelectedIndex() == 1) {
 											LocalDate dtApres = LocalDate.parse(tfDtApres.getText(), formatter);
 											LocalDate dtAprov = LocalDate.parse(tfDtAprov.getText(), formatter);
-											ProjetoDeLei projetoDeLei = new ProjetoDeLei();
-											projetoDeLei.setTitulo(tfTituloLei.getText());
-											projetoDeLei.setDataApresentacao(dtApres);
-											projetoDeLei.setDataApresentacao(dtAprov);
-											projetosFalsos.add(projetoDeLei);
+											if (dtAprov == null) { // Verifica se foi aprovado
+												ProjetoDeLei projetoDeLei = new ProjetoDeLei();
+												projetoDeLei.setTitulo(tfTituloLei.getText());
+												projetoDeLei.setDataApresentacao(dtApres);
+												projetos.add(projetoDeLei);
+												planos.put((Vereador) jcbVereadores.getSelectedItem(), projetoDeLei);
+												contProjetos++;
+												msg = "Projeto de Lei cadastrado";
+												JOptionPane.showMessageDialog(null, msg);
+											} else {
+												ProjetoDeLei projetoDeLei = new ProjetoDeLei();
+												projetoDeLei.setTitulo(tfTituloLei.getText());
+												projetoDeLei.setDataApresentacao(dtApres);
+												projetoDeLei.setDataApresentacao(dtAprov);
+												projetos.add(projetoDeLei);
+												
+												for (Vereador vereador : vereadores) {
+													for(ProjetoDeLei projeto : projetos) {
+														contProjetosAprov++;
+													}
+												}
+												
+												planos.put((Vereador) jcbVereadores.getSelectedItem(), projetoDeLei);
+												contProjetos++;
+												msg = "Projeto de Lei cadastrado";
+												JOptionPane.showMessageDialog(null, msg);
+											}
+											
 										} else {
 											LocalDate dtApres = LocalDate.parse(tfDtApres.getText(), formatter);
 											LocalDate dtAprov = LocalDate.parse(tfDtAprov.getText(), formatter);
 											int qtdVF = Integer.parseInt(tfQtdVF.getText());
-											ProjetoDeLeiComplementar projetoDeLeiComplementar = new ProjetoDeLeiComplementar();
-											projetoDeLeiComplementar.setTitulo(tfTituloLei.getText());
-											projetoDeLeiComplementar.setDataApresentacao(dtApres);
-											projetoDeLeiComplementar.setDataApresentacao(dtAprov);
-											projetoDeLeiComplementar.setArtigoLO(tfLO.getText());
-											projetoDeLeiComplementar.setQtdVotosFavoraveis(qtdVF);
-											projetosFalsos.add(projetoDeLeiComplementar);
+											if (dtAprov == null) {
+												ProjetoDeLeiComplementar projetoDeLeiComplementar = new ProjetoDeLeiComplementar();
+												projetoDeLeiComplementar.setTitulo(tfTituloLei.getText());
+												projetoDeLeiComplementar.setDataApresentacao(dtApres);
+												projetoDeLeiComplementar.setArtigoLO(tfLO.getText());
+												projetoDeLeiComplementar.setQtdVotosFavoraveis(qtdVF);
+												projetos.add(projetoDeLeiComplementar);
+												planos.put((Vereador) jcbVereadores.getSelectedItem(), projetoDeLeiComplementar);
+												contProjetos++;
+												msg = "Projeto de Lei Complementar cadastrado";
+												JOptionPane.showMessageDialog(null, msg);
+											} else {
+												ProjetoDeLeiComplementar projetoDeLeiComplementar = new ProjetoDeLeiComplementar();
+												projetoDeLeiComplementar.setTitulo(tfTituloLei.getText());
+												projetoDeLeiComplementar.setDataApresentacao(dtApres);
+												projetoDeLeiComplementar.setDataApresentacao(dtAprov);
+												projetoDeLeiComplementar.setArtigoLO(tfLO.getText());
+												projetoDeLeiComplementar.setQtdVotosFavoraveis(qtdVF);
+												projetos.add(projetoDeLeiComplementar);
+												contProjetosAprov++;
+												
+												for (Vereador vereador : vereadores) {
+													vereador.setQtdProjAprov(contProjetosAprov);
+												}
+												
+												
+												planos.put((Vereador) jcbVereadores.getSelectedItem(), projetoDeLeiComplementar);
+												contProjetos++;
+												msg = "Projeto de Lei Complementar cadastrado " + contProjetosAprov + " do Vereador " + jcbVereadores.getSelectedItem();												
+												JOptionPane.showMessageDialog(null, msg);
+											}
+											
 										}
 									}
 								});
 								btnInserir.setText("Inserir");
-								
-										javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-										jPanel2Layout.setHorizontalGroup(
-											jPanel2Layout.createParallelGroup(Alignment.LEADING)
-												.addGroup(jPanel2Layout.createSequentialGroup()
-													.addContainerGap()
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-														.addGroup(jPanel2Layout.createSequentialGroup()
-															.addComponent(jLabel3)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(jtfNomeVereador, GroupLayout.PREFERRED_SIZE, 264, GroupLayout.PREFERRED_SIZE))
-														.addGroup(jPanel2Layout.createSequentialGroup()
-															.addComponent(jLabel4)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(jtfNumPartidoVereador, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
-														.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-															.addComponent(separator, GroupLayout.PREFERRED_SIZE, 459, GroupLayout.PREFERRED_SIZE)
-															.addGroup(jPanel2Layout.createSequentialGroup()
-																.addGap(12)
-																.addComponent(lblLawType, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
-																.addGap(4)
-																.addComponent(jcbProjectType, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE))
-															.addGroup(jPanel2Layout.createSequentialGroup()
-																.addGap(12)
-																.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-																.addGap(95)
-																.addComponent(tfTituloLei, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-															.addGroup(jPanel2Layout.createSequentialGroup()
-																.addGap(12)
-																.addComponent(lblDtApres, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-																.addGap(12)
-																.addComponent(tfDtApres, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-															.addGroup(jPanel2Layout.createSequentialGroup()
-																.addGap(12)
-																.addComponent(lblDtAprov, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
-																.addGap(51)
-																.addComponent(tfDtAprov, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-															.addGroup(jPanel2Layout.createSequentialGroup()
-																.addGap(12)
-																.addComponent(lblLeiOrganica, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-																.addGap(63)
-																.addComponent(tfLO, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-															.addGroup(jPanel2Layout.createSequentialGroup()
-																.addGap(12)
-																.addComponent(lblQtdVF, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-																.addGap(4)
-																.addComponent(tfQtdVF, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))))
-													.addContainerGap(97, Short.MAX_VALUE))
-												.addGroup(Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-													.addContainerGap(331, Short.MAX_VALUE)
-													.addComponent(btnInserir, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(jbCadastrarVereador)
-													.addGap(67))
-										);
-										jPanel2Layout.setVerticalGroup(
-											jPanel2Layout.createParallelGroup(Alignment.LEADING)
-												.addGroup(jPanel2Layout.createSequentialGroup()
-													.addGap(19)
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(jLabel3)
-														.addComponent(jtfNomeVereador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(jLabel4)
-														.addComponent(jtfNumPartidoVereador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-													.addGap(18)
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-														.addGroup(jPanel2Layout.createSequentialGroup()
-															.addGap(3)
-															.addComponent(lblLawType))
-														.addComponent(jcbProjectType, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-													.addGap(27)
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-														.addGroup(jPanel2Layout.createSequentialGroup()
-															.addGap(3)
-															.addComponent(lblTitulo))
-														.addComponent(tfTituloLei, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-													.addGap(18)
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-														.addGroup(jPanel2Layout.createSequentialGroup()
-															.addGap(3)
-															.addComponent(lblDtApres))
-														.addComponent(tfDtApres, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-													.addGap(18)
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-														.addGroup(jPanel2Layout.createSequentialGroup()
-															.addGap(3)
-															.addComponent(lblDtAprov))
-														.addComponent(tfDtAprov, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-													.addGap(18)
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-														.addGroup(jPanel2Layout.createSequentialGroup()
-															.addGap(3)
-															.addComponent(lblLeiOrganica))
-														.addComponent(tfLO, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-													.addGap(18)
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
-														.addGroup(jPanel2Layout.createSequentialGroup()
-															.addGap(3)
-															.addComponent(lblQtdVF))
-														.addComponent(tfQtdVF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-													.addGap(30)
-													.addGroup(jPanel2Layout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(btnInserir)
-														.addComponent(jbCadastrarVereador))
-													.addContainerGap())
-										);
-										jPanel2.setLayout(jPanel2Layout);
+										
+										
+										jbCadastrarVereador.setText("Cadastrar");
+										jbCadastrarVereador.setEnabled(false);
 										
 												jTabbedPane1.addTab("Vereador", jPanel2);
+												jPanel2.setLayout(null);
+												jPanel2.add(jLabel3);
+												jPanel2.add(jtfNomeVereador);
+												jPanel2.add(lblLawType);
+												jPanel2.add(jcbProjectType);
+												jPanel2.add(lblTitulo);
+												jPanel2.add(tfTituloLei);
+												jPanel2.add(lblDtApres);
+												jPanel2.add(tfDtApres);
+												jPanel2.add(lblDtAprov);
+												jPanel2.add(tfDtAprov);
+												jPanel2.add(lblLeiOrganica);
+												jPanel2.add(tfLO);
+												jPanel2.add(lblQtdVF);
+												jPanel2.add(tfQtdVF);
+												jPanel2.add(jLabel4);
+												jPanel2.add(jtfNumPartidoVereador);
+												jPanel2.add(jbCadastrarVereador);
+												jPanel2.add(separator);
+												jPanel2.add(btnInserir);
+												
+												jcbVereadores = new JComboBox();
+												jcbVereadores.setBounds(133, 353, 72, 22);
+												jPanel2.add(jcbVereadores);
+												
+												lblNewLabel = new JLabel("Vereador autoral");
+												lblNewLabel.setBounds(22, 357, 101, 14);
+												jPanel2.add(lblNewLabel);
+		
+		btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for (Vereador vereador : vereadores) {
+					String msg =  "";
+					
+					
+					JOptionPane.showMessageDialog(null, msg);
+				}
+				
+			}
+		});
 
 		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-		jPanel3.setLayout(jPanel3Layout);
-		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel3Layout.createSequentialGroup().addContainerGap()
-						.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jSeparator1)
-								.addGroup(jPanel3Layout.createSequentialGroup().addComponent(jLabel9)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 52,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(18, 18, 18).addComponent(jbEstatisticas)
-										.addGap(0, 41, Short.MAX_VALUE)))
-						.addContainerGap())
+		jPanel3Layout.setHorizontalGroup(
+			jPanel3Layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(jPanel3Layout.createSequentialGroup()
-						.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jbMenorDesempenho).addComponent(jbMaisProjetos)
-								.addComponent(jbTotalProjetos).addComponent(jbVereadoresAcimaMedia))
-						.addGap(0, 0, Short.MAX_VALUE)));
-		jPanel3Layout
-				.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(jPanel3Layout.createSequentialGroup().addContainerGap().addGroup(jPanel3Layout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel9)
-								.addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jbEstatisticas)).addGap(13, 13, 13)
-								.addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(jbMenorDesempenho).addGap(18, 18, 18).addComponent(jbMaisProjetos)
-								.addGap(18, 18, 18).addComponent(jbTotalProjetos).addGap(18, 18, 18)
-								.addComponent(jbVereadoresAcimaMedia).addContainerGap(45, Short.MAX_VALUE)));
+					.addGroup(jPanel3Layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(jPanel3Layout.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(jPanel3Layout.createParallelGroup(Alignment.LEADING)
+								.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(jPanel3Layout.createSequentialGroup()
+									.addComponent(jLabel9)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(jTextField7, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(jbEstatisticas))))
+						.addComponent(jbMenorDesempenho)
+						.addComponent(jbMaisProjetos)
+						.addComponent(jbTotalProjetos)
+						.addComponent(jbVereadoresAcimaMedia)
+						.addGroup(jPanel3Layout.createSequentialGroup()
+							.addGap(141)
+							.addComponent(btnConsultar)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		jPanel3Layout.setVerticalGroup(
+			jPanel3Layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(jPanel3Layout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(jPanel3Layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jLabel9)
+						.addComponent(jTextField7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jbEstatisticas))
+					.addGap(13)
+					.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(jbMenorDesempenho)
+					.addGap(18)
+					.addComponent(jbMaisProjetos)
+					.addGap(18)
+					.addComponent(jbTotalProjetos)
+					.addGap(18)
+					.addComponent(jbVereadoresAcimaMedia)
+					.addGap(63)
+					.addComponent(btnConsultar)
+					.addContainerGap(81, Short.MAX_VALUE))
+		);
+		jPanel3.setLayout(jPanel3Layout);
 
 		jTabbedPane1.addTab("Consultas", jPanel3);
 
@@ -473,14 +503,6 @@ public class Apresentacao extends javax.swing.JFrame {
 		Partido partido = new Partido(jtfNomePartido.getText(), Integer.parseInt(jtfNumPartido.getText()));
 		camara.addPartido(partido);
 		String msg = "Novo partido cadastrado.";
-		
-		JOptionPane.showMessageDialog(this, msg);
-	}
-
-	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-		Vereador vereador = new Vereador(jtfNomeVereador.getText(), pesquisado);
-		String msg = "Vereador " + vereador.getNome() + " do partido " + vereador.getPartido().getNome()
-				+ " está com desempenho " + vereador.calcularDesempenho();
 		JOptionPane.showMessageDialog(this, msg);
 	}
 
@@ -543,7 +565,6 @@ public class Apresentacao extends javax.swing.JFrame {
 
 	// Variables declaration
 	private javax.swing.JButton jbCadastrarPartido;
-	private javax.swing.JButton jbCadastrarVereador;
 	private javax.swing.JButton jbMenorDesempenho;
 	private javax.swing.JButton jbMaisProjetos;
 	private javax.swing.JButton jbEstatisticas;
@@ -571,4 +592,7 @@ public class Apresentacao extends javax.swing.JFrame {
 	private JTextField tfDtAprov;
 	private JTextField tfLO;
 	private JTextField tfQtdVF;
+	private JComboBox jcbVereadores;
+	private JLabel lblNewLabel;
+	private JButton btnConsultar;
 }
