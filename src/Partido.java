@@ -1,13 +1,17 @@
 import java.util.ArrayList;
 
 public class Partido {
-	private String nome;
-	private int numero;
+	protected String nome;
+	protected int numero;
 	private ArrayList<Vereador> vereadores = new ArrayList<>();
 
 	public Partido(String nome, int numero) {
 		this.setNome(nome);
 		this.setNumero(numero);
+	}
+	
+	public Partido() {
+		
 	}
 	
 	protected void addVereador(Vereador v) {
