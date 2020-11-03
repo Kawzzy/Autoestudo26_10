@@ -330,7 +330,7 @@ public class Apresentacao extends javax.swing.JFrame {
 					ProjetoDeLei projetoDeLei = new ProjetoDeLei();
 					projetoDeLei.setTitulo(tfTituloLei.getText());
 					// Falta aqui!!!
-					projetoDeLei.setNumeroProjeto(Integer.parseInt(tfNumeroProjeto.getText()));
+					//projetoDeLei.setNumeroProjeto(Integer.parseInt(tfNumeroProjeto.getText()));
 					
 					if(dtApres != null) {
 						projetoDeLei.setDataApresentacao(dtApres);
