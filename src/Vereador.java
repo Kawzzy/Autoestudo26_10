@@ -64,7 +64,7 @@ public class Vereador {
 
 	public void setQtdProjAprov(int qtdProjAprov) {
 		if (qtdProjAprov >= 0) {
-			this.qtdProjAprov = qtdProjAprov;
+			this.qtdProjAprov += qtdProjAprov;
 		}
 	}
 
@@ -74,7 +74,7 @@ public class Vereador {
 
 	public void setQtdProjApres(int qtdProjApres) {
 		if (qtdProjApres >= 0) {
-			this.qtdProjApres = qtdProjApres;
+			this.qtdProjApres += qtdProjApres;
 		}
 	}
 }
