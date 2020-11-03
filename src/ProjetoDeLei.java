@@ -6,6 +6,17 @@ public class ProjetoDeLei extends Vereador {
 					  dataAprovacao;
 	private int numeroProjeto;
 	
+	private Vereador vereador;
+	
+	
+	public Vereador getVereador() {
+		return vereador;
+	}
+
+	public void setVereador(Vereador vereador) {
+		this.vereador = vereador;
+	}
+
 	public ProjetoDeLei(String titulo, LocalDate dtApres, LocalDate dtAprov, int numProjeto, 
 			String nomeVereador, Partido partidoVereador) {
 		
@@ -51,13 +62,9 @@ public class ProjetoDeLei extends Vereador {
 	
 	public String mostrar() {
 		
-	String msg = "Nome: " + super.getNome() +  " \n" + "Partido: " + super.getPartido() + " \n" + "Desempenho: " + super.calcularDesempenho() + " \n" + "Título: " + this.getTitulo() + " \n" +
-			"Data de Apresentação: " + this.getDataApresentacao() + " \n" + "Data de Aprovação: " + this.getDataAprovacao() + " \n" + "Número do Projeto: " + this.getNumeroProjeto();
-		
-		
-		
-		
-		
+		String msg = "Título: " + this.getTitulo() + " \n" + "Data de Apresentação: " + this.getDataApresentacao() + 
+				" \n" + "Data de Aprovação: " + this.getDataAprovacao() + " \n" + "Número do Projeto: " + this.getNumeroProjeto();
+
 		return msg;
 	}
 	
